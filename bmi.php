@@ -11,9 +11,15 @@
         div{
             padding:5px;
         }
+        .menu{
+            text-align: right;
+        }
     </style>
 </head>
 <body>
+    <div class = "menu">
+        <a href="index.html">回首頁</a>
+    </div>
     <?php
     // 是否有量過
     if(isset($_GET['bmi'])) {
