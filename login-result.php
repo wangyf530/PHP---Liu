@@ -31,7 +31,7 @@
         // $_SESSION['login']=$acc;
         setcookie("login","$acc",time()+60);
         echo $_COOKIE['login'];
-        echo "<br> <a href='login.php> <br> 回首頁</a>";
+        echo "<br> <a href='login.php'> <br> 回首頁</a>";
     } else {
         echo "輸入錯誤，登入失敗";
         echo '<div><a href="login.php">重新輸入</a></div>';
