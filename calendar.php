@@ -8,12 +8,20 @@
     table {
         border-collapse:collapse;
         margin:auto;
-        width:300px;
     }
-    td,th{
+    td{
         /* padding:5px 10px; */
         text-align: center;
         border:1px solid #999;
+        width: 100px;
+    }
+
+    td:hover{
+        background-color:skyblue;
+    }
+
+    .days{
+        height:50px;
     }
 
     .holiday{
@@ -31,18 +39,17 @@
         font-weight: bolder;
     }
 
-    .clicks{
+    .nav{
+        border: 1px solid black;
         font-size:18px;
-        border:2px solid black;
         margin: auto;
         text-align: center;
-        width:300px;
+        width:823px;
         background: lightgrey;
+        border-bottom:none;
+
     }
 
-    a{
-        padding:3px;
-    }
     a:hover{
         background:black;
         color:white;
@@ -53,16 +60,7 @@
 </head>
 
 <body>
-    <h1>萬年曆</h1>
 
-    <h3>線上月曆製作</h3>
-<ul>
-    <li>以月為單位來顯示一個月中的日期</li>
-    <li>有上一個月，下一個月的連結來切換月份</li>
-    <li>可以不同的顏色或樣式來強調當日或周末</li>
-    <li>有上一個月下一個月的按鈕</li>
-    <li>萬年曆都在同一個頁面同一個檔案</li>
-</ul>
 <?php
     // 如果有參數就按照參數來 沒有的話就用當前年月份
     if (isset($_GET['month'])) {
@@ -94,18 +92,17 @@
         $nextMonth = $month +1;
         $nextYear = $year;
     }
-?>
-<div class='clicks'>
-    <!-- 連結前往去年、上一個月、今天、下一個月、以及明年 -->
-    <a href="calendar.php?year=<?=$year-1;?>&month=<?=$month;?>"> 去年 </a>
-    <a href="calendar.php?year=<?=$prevYear;?>&month=<?=$prevMonth;?>"> 上一個月 </a>
-    <a href="calendar.php?year=<?=date("Y");?>&month=<?=date('m');?>"> 今天 </a>
-    <a href="calendar.php?year=<?=$nextYear;?>&month=<?=$nextMonth;?>"> 下一個月 </a>
-    <a href="calendar.php?year=<?=$year+1;?>&month=<?=$month;?>"> 明年 </a>
-</div>
 
-<!-- 萬年曆的表格 -->
-<table>
+    // 特殊節日
+    $spDate=['2024-11-07'=>"立冬", 
+             '2024-11-22'=>"小雪"];
+
+    // 每年固定的假日
+    $holidays=['01-01'=>"元旦",
+               '02-28'=>"二二八紀念日",
+               '05-01'=>"勞動節",
+               '10-10'=>"國慶日"];
+?>
 <?php
     // 當月第一天
     $firstInMonth = "$year-$month-1";
@@ -113,11 +110,32 @@
     // 當月第一天是週幾
     $firstDayWeek= date("w",$firstDayTime);
     // $firstDayWeek = date("w",strtotime(date("Y-m-1")));
+?>
+<div class='nav'>
+    <!-- 連結前往去年、上一個月、今天、下一個月、以及明年 -->
+    <table style="width:100%;">
+        <tr>
+            <td style='text-align:left'>
+                <a href="calendar.php?year=<?=$year-1;?>&month=<?=$month;?>"> 去年 </a>
+                <a href="calendar.php?year=<?=$prevYear;?>&month=<?=$prevMonth;?>"> 上一個月 </a>
+            </td>
+            <td>
+            <?=date('Y年-m月',$firstDayTime);?>
+            </td>
+            <td style='text-align:right'>
+                <a href="calendar.php?year=<?=$nextYear;?>&month=<?=$nextMonth;?>"> 下一個月 </a>
+                <a href="calendar.php?year=<?=$year+1;?>&month=<?=$month;?>"> 明年 </a>
+            </td>
+        </tr>
+</table>
+</div>
 
 
-    // 印月份 
-    $month = date('Y年-m月',$firstDayTime);
-    echo "<tr> <td colspan=8>".$month."</td>";
+
+<!-- 萬年曆的表格 -->
+<table>
+<?php
+    
     // 印週幾
     $day=[' ','日','一','二','三','四','五','六'];
     echo "<tr>";
@@ -135,7 +153,7 @@
     for ($i=0; $i<6; $i++) { 
         echo "<tr>";
         // 印第幾周
-        echo "<td>";
+        echo "<td class='days'>";
         echo $i+1;
         echo "</td>";
 
@@ -154,6 +172,14 @@
             $isHoliday = ($w==6 || $w==0)?'holiday':'';
             echo "<td class = '$theMonth $isToday $isHoliday'>";
             echo date('d',$theDayTime);
+            // 如果今天的日期有在$spDate裡面 key
+            // value
+            if (isset($spDate[date('Y-m-d',$theDayTime)])) {
+                echo "<br>{$spDate[date('Y-m-d',$theDayTime)]}";
+            }
+            if (isset($holidays[date('m-d',$theDayTime)])) {
+                echo "<br>{$holidays[date("m-d",$theDayTime)]}";
+            }
             echo "</td>";
         }
         echo "</tr>";
@@ -161,5 +187,8 @@
 
 ?>
 </table>
+<div style="text-align:center; padding-top:5px;">
+<a href="calendar.php?year=<?=date("Y");?>&month=<?=date('m');?>"> 今天 </a>
+</div>
 </body>
 </html>
