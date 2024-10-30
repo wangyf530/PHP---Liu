@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>首頁</h1>
-    <?php include("common/navbar.php"); ?>
+    <!-- <h1>首頁</h1> -->
+    <?php 
+        $page = 'index';
+        include("common/navbar.php"); ?>
 
     <main>
         <h2>歡迎光臨</h2>

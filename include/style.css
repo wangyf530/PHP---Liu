@@ -1,5 +1,12 @@
 h1{
     color: blue;
-    background-color: yellow;
+    background-color: lightskyblue;
     
+}
+
+.now-page{
+    padding: 3px 8px;
+    border: 1px solid #ccc;
+    background:aqua;
+    color: #333;
 }
