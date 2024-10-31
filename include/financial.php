@@ -9,7 +9,7 @@
 <body>
     <!-- <h1>財務報表</h1> -->
     <?php 
-        $page = 'contact';
+        $page = 'financial';
         include("common/navbar.php"); ?>
     <main>
         <h2>財務報表</h2>

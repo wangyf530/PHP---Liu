@@ -1,12 +1,33 @@
+body{
+    height:3000px;
+    margin-top: 0;
+}
 h1{
+    position: sticky;
+    top: 0; /* 固定在頁面最上方 */
+    left: 0; /* 左邊距設為 0 */
+    right: 0; /* 右邊距設為 0 */
     color: blue;
     background-color: lightskyblue;
+    margin:0;
     
 }
 
-.now-page{
+.now-page {
+    width: 20%;
     padding: 3px 8px;
     border: 1px solid #ccc;
-    background:aqua;
+    background: aqua;
     color: #333;
+    box-sizing: border-box;
+}
+
+footer {
+    position: fixed; /* 更改為 fixed 以固定在頁面底部 */
+    bottom: 0;
+    left: 0; /* 將左邊距設為 0 */
+    right: 0; /* 將右邊距設為 0 */
+    height: 2.5rem;
+    background-color: #ccc;
+    width: 100%; /* 確保寬度為 100% */
 }
